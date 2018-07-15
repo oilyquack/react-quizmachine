@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
+import QuestionsContainer from "../containers/QuestionsContainer";
 
 class App extends React.Component {
-  render(){
+  render() {
     return (
       <div>
-        App contents go here
+        REDUX TRIVIA!
+        <QuestionsContainer />
       </div>
-    )
+    );
   }
 }
 
