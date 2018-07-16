@@ -50,10 +50,12 @@ class Questions extends React.Component {
         </div>
         <hr />
         {loading ? (
-          <h4>LOADING...</h4>
+          <div className="app__loading">
+            <h3>LOADING...</h3>
+          </div>
         ) : (
-          <div>
-            <p>{question}</p>
+          <div className="app__questions">
+            <h3>{question}</h3>
 
             {answers.map((answer, i) => {
               return (
