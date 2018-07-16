@@ -1,31 +1,46 @@
-export const actions = {
-  ANSWER_SUBMITTED: "ANSWER_SUBMITTED",
-  QUESTIONS_LOADING: "QUESTIONS_LOADING",
-  QUESTIONS_LOADED: "QUESTIONS_LOADED"
-};
+export const QUESTIONS_LOADING = "QUESTIONS_LOADING";
+export const QUESTIONS_LOADED = "QUESTIONS_LOADED";
+export const INCREMENT_SCORE = "INCREMENT_SCORE";
+export const RESET_SCORE = "RESET_SCORE";
+export const UPDATE_DIFFICULTY = "UPDATE_DIFFICULTY";
 
-function onQuestionLoading() {
-  return {
-    type: "QUESTIONS_LOADING"
-  };
-}
+/* Simple Action Creators */
+export const onQuestionLoading = () => ({
+  type: QUESTIONS_LOADING
+});
 
-function onQuestionsLoaded(questions) {
-  return {
-    type: actions.QUESTIONS_LOADED,
-    questions
-  };
-}
+export const onQuestionsLoaded = questionResponse => ({
+  type: QUESTIONS_LOADED,
+  questionResponse
+});
 
-const fetchQuestions = (type = "multiple") => dispatch => {
-  dispatch(onQuestionLoading);
+export const incrementScore = () => ({
+  type: INCREMENT_SCORE
+});
+
+export const resetScore = () => ({
+  type: RESET_SCORE
+});
+
+export const updateDifficulty = difficulty => ({
+  type: UPDATE_DIFFICULTY,
+  difficulty
+});
+
+/* "Thunk" actions */
+
+const fetchQuestions = () => (dispatch, getState) => {
+  dispatch(onQuestionLoading());
+
+  const difficulty = getState().questions.difficulty;
 
   return fetch(
-    `https://opentdb.com/api.php?amount=1&type=${type}&encode=url3986`
+    `https://opentdb.com/api.php?amount=1&type=multiple&difficulty=${difficulty}&encode=url3986`
   )
     .then(response => response.json())
     .then(result => {
-      dispatch(onQuestionsLoaded(result.results));
+      const [question] = result.results || [];
+      dispatch(onQuestionsLoaded(question));
     });
 };
 
@@ -33,9 +48,20 @@ export const loadQuestions = type => dispatch => {
   dispatch(fetchQuestions(type));
 };
 
-export function submitAnswer(answer) {
-  return {
-    type: actions.ANSWER_SUBMITTED,
-    answer
-  };
-}
+export const submitAnswer = answer => (dispatch, getState) => {
+  const { correctAnswer } = getState().questions;
+
+  if (correctAnswer === answer) {
+    dispatch(incrementScore());
+    dispatch(fetchQuestions());
+  } else {
+    dispatch(resetScore());
+    dispatch(fetchQuestions());
+  }
+};
+
+export const changeDifficulty = difficulty => dispatch => {
+  dispatch(updateDifficulty(difficulty));
+  dispatch(resetScore());
+  dispatch(fetchQuestions());
+};

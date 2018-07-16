@@ -1,18 +1,22 @@
 import { connect } from "react-redux";
 import Questions from "../components/Questions";
-import { loadQuestions, submitAnswer } from "../actions";
+import { loadQuestions, submitAnswer, changeDifficulty } from "../actions";
 
-const mapStateToProps = state => {
-  return {
-    questions: state.questions
-  };
-};
+const mapStateToProps = ({
+  questions: { question, answers, difficulty, loading, score, clue }
+}) => ({
+  question,
+  answers,
+  score,
+  loading,
+  difficulty,
+  clue
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadQuestions: () => dispatch(loadQuestions()),
-    submitAnswer: () => dispatch(submitAnswer())
-  };
+const mapDispatchToProps = {
+  loadQuestions,
+  submitAnswer,
+  changeDifficulty
 };
 
 export default connect(
