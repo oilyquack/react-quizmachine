@@ -32,9 +32,9 @@ class Questions extends React.Component {
 
     return (
       <div>
-        <hr />
+        <div className="app__score" />
         <h2>Score: {score}</h2>
-        <hr />
+        <div />
         <div className="button-group">
           {difficulties.map(d => {
             return (

@@ -4,7 +4,7 @@ import QuestionsContainer from "../containers/QuestionsContainer";
 class App extends React.Component {
   render() {
     return (
-      <div className="container">
+      <div className="app">
         <h1>REDUX TRIVIA!</h1>
         <QuestionsContainer />
       </div>

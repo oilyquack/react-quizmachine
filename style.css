@@ -8,8 +8,35 @@
   border: 2px solid #550527;
 }
 
-.voting-button--selected {
-  color: #FFF;
-  background-color: #550527;
-  border: 2px solid white;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  background: rgb(248, 248, 248);
+  color: rgb(49, 49, 49);
+}
+
+.app {
+  height: 100vh;
+  text-align: center;
+}
+
+.app__score,
+h2 {
+  font-size: 30px;
+  color: rgb(51, 51, 51);
+}
+
+/* Buttons */
+.button-group,
+button {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 15px;
+  padding: 5px;
+  margin: 5px;
 }
