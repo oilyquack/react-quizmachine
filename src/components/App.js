@@ -5,7 +5,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <h1>REDUX TRIVIA!</h1>
+        <h1>LET'S GET QUIZICAL!</h1>
         <QuestionsContainer />
       </div>
     );
