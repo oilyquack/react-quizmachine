@@ -32,6 +32,10 @@ h2 {
   color: rgb(51, 51, 51);
 }
 
+.app__questions {
+  margin: 20px;
+}
+
 .app__loading {
   font-size: 40px;
 }
